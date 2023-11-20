@@ -1,44 +1,53 @@
 package Quizkampen;
 
+import java.util.Arrays;
+
 public class quizkampenProtocol {
 
-        private static final int WAITING = 0;
+    private static final int WAITING = 0;
+    private static final int ANSWER = 1;
 
-        private static final int ANSWER = 2;
+    private int state = WAITING;
 
-        private static final int ALTERNATIVES = 1;
+    private int currentQuestion = 0;
+    private int currentAlternatives = 0;
+    private int currentAnswers = 0;
 
-        private static final int Questions = 4;
+    private String[] Question = {"Vilka vann herrarnas fotbolls-VM 2022?", "Vilket lag vann SM-guld i ishockey för herrar 2007?"};
+    private String[] Answers = {"Argentina", "Modo"};
+    private String[][] Alternatives = {
+            {"Spanien", "Argentina", "Tyskland", "Italien"},
+            {"Djurgården", "Malmö", "Luleå", "Modo"}
+    };
 
-        private int state = WAITING;
+    public String processInput(String theInput) {
+        String theOutput;
 
-        private int currentQuestion = 0;
-        private int currentAlternatives= 0;
+        if (state == WAITING) {
+            theOutput = Question[currentQuestion] + Arrays.toString(Alternatives[currentAlternatives]);
+            state = ANSWER;
+        } else if (state == ANSWER) {
+            if (theInput.equalsIgnoreCase(Answers[currentAnswers])) {
+                theOutput = "Du svarade rätt";
 
-
-        private String[] Question = {"Vilka vann herrarnas fotbolls-VM 2022?","VIlket lag vann SM-guld i ishockey för herrar 2007?"};
-        private String[][] answers = {
-                {"Spanien", "Argentina", "Tyskland", "Italien"},
-                {"Sverige", "USA","Canada","Modo"}
-                };
-
-                public String processInput(String theInput){
-                    String theOutput = null;
-
-                    if (state == WAITING){
-                        theOutput = Question[currentQuestion];
-                          state = ALTERNATIVES;
-                    } else if (state == ALTERNATIVES){
-                        theOutput = "Spanien"+ "Argentina"+ "Tyskland"+ "Italien"; //Skriver inte ut
-                        if(state == ANSWER) {
-                        } else if(theInput.equalsIgnoreCase("Argentina")){
-                            theOutput = "Du har rätt";
-                        }else {
-                            theOutput = "Du svara fel";
-                        }
-
-                    }
-                    return theOutput;
+                // Gå till nästa fråga om det finns fler frågor
+                if (currentQuestion < Question.length - 1) {
+                    currentQuestion++;
+                    currentAlternatives++;
+                    currentAnswers++;
+                    state = WAITING;
+                } else {
+                    theOutput += "\nQuizet är slut.";
+                    state = WAITING;
                 }
+            } else {
+                theOutput = "Du svarade fel";
+                state = WAITING;
+            }
+        } else {
+            theOutput = "Ogiltigt tillstånd";
+        }
 
+        return theOutput;
+    }
 }
