@@ -4,45 +4,59 @@ import java.util.Arrays;
 
 public class quizkampenProtocol {
 
+    private Questions questions = new Questions();
+
+    private Round rounds = new Round();
+
     private static final int WAITING = 0;
     private static final int ANSWER = 1;
-
     private int state = WAITING;
+    private int currentQuestionIndex = 0;
 
-    private int currentQuestion = 0;
-    private int currentAlternatives = 0;
-    private int currentAnswers = 0;
+    private int questionCounter = 0;
 
-    private String[] Question = {"Vilka vann herrarnas fotbolls-VM 2022?", "Vilket lag vann SM-guld i ishockey för herrar 2007?"};
-    private String[] Answers = {"Argentina", "Modo"};
-    private String[][] Alternatives = {
-            {"Spanien", "Argentina", "Tyskland", "Italien"},
-            {"Djurgården", "Malmö", "Luleå", "Modo"}
-    };
+    private int roundCounter = 0;
+    private int gameCounter = 0;
+
 
     public String processInput(String theInput) {
-        String theOutput;
+        String theOutput = "";
+
+        if (roundCounter > Round.getMaxRoundsPerGame()) {
+            return "Spelet är slut";
+
+        }
 
         if (state == WAITING) {
-            theOutput = Question[currentQuestion] + Arrays.toString(Alternatives[currentAlternatives]);
+            if (questionCounter == 0) {
+                theOutput = "Rond " + (roundCounter + 1) + ": ";
+            }
+            theOutput += "Fråga " + (questionCounter + 1) + ": " + questions.getQuestions(currentQuestionIndex) +
+                    Arrays.toString(questions.getAlternatives(currentQuestionIndex));
             state = ANSWER;
-        } else if (state == ANSWER) {
-            if (theInput.equalsIgnoreCase(Answers[currentAnswers])) {
-                theOutput = "Du svarade rätt";
 
-                // Gå till nästa fråga om det finns fler frågor
-                if (currentQuestion < Question.length - 1) {
-                    currentQuestion++;
-                    currentAlternatives++;
-                    currentAnswers++;
-                    state = WAITING;
-                } else {
-                    theOutput += "\nQuizet är slut.";
-                    state = WAITING;
-                }
+        } else if (state == ANSWER) {
+            if (theInput.equalsIgnoreCase(questions.getCorrectAnswer(currentQuestionIndex))) {
+                theOutput = "Du svarade rätt";
             } else {
-                theOutput = "Du svarade fel";
+                theOutput = "Du svarade fel, rätt svar är " + questions.getCorrectAnswer(currentQuestionIndex);
+            }
+            currentQuestionIndex++;
+            questionCounter++;
+
+
+            if (questionCounter >= Round.getMaxQuestionsPerRound()) {
+                questionCounter = 0;
+                roundCounter++;
+                if (roundCounter >= Round.getMaxRoundsPerGame()) {
+                    gameCounter++;
+                    theOutput += "\nGame " + gameCounter + " färdigspelat";
+                }
+            }
+            if (currentQuestionIndex < questions.getQuestionAmount()) {
                 state = WAITING;
+            } else {
+                theOutput += "\nSpelet är slut.";
             }
         } else {
             theOutput = "Ogiltigt tillstånd";
@@ -51,3 +65,10 @@ public class quizkampenProtocol {
         return theOutput;
     }
 }
+
+
+
+
+
+
+
