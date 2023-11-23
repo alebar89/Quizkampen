@@ -11,7 +11,7 @@ public class Questions {
             "Hur många basketspelare får finnas på planen per lag?",
             "Vilken tennisspelare har vunnit flest Grand Slam titlar?"};
 
-    private String[] Answers = {"Argentina",
+    private static String[] Answers = {"Argentina",
             "Modo",
             "5",
             "Novak Djokovic"};
@@ -37,6 +37,15 @@ public class Questions {
         return Question.length;
     }
 
+    public String[] getQuestion() {
+        return Question;
+    }
 
+    public static String[] getAnswers() {
+        return Answers;
+    }
 
+    public String[][] getAlternatives() {
+        return Alternatives;
+    }
 }
