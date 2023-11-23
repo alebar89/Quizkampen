@@ -1,7 +1,36 @@
 package Quizkampen;
 
 public class Player {
+    private String name;
+    private int totalPoints;
+    private int[] roundPoints; // För att lagra poängen per rond
 
-    //TODO ska föreställa spelaren, hålla namn, antal poäng och svar som har angetts för att poäng ska kunna delas ut eller inte.
-    // metod kan implementeras för att updatera spelarens score och getters and setters för att kanske hämta namn score osv.
+    public Player(String name, int maxRounds) {
+        this.name = name;
+        this.totalPoints = 0;
+        this.roundPoints = new int[maxRounds];
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getTotalPoints() {
+        return totalPoints;
+    }
+
+    // Uppdaterar totala poängen för spelaren
+    public void updateTotalPoints(int points) {
+        totalPoints += points;
+    }
+
+    // Update points for the current round
+    public void updateRoundPoints(int round, int points) {
+        roundPoints[round] = points;
+    }
+
+    // Få poäng för specifik runda
+    public int getPointsForRound(int round) {
+        return roundPoints[round];
+    }
 }

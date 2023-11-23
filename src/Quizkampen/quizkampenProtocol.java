@@ -18,14 +18,20 @@ public class quizkampenProtocol {
     private int roundCounter = 0;
     private int gameCounter = 0;
 
+    private Player player1 = new Player("Player 1", Round.getMaxRoundsPerGame());
+    private Player player2 = new Player("Player 2", Round.getMaxRoundsPerGame());
+
 
     public String processInput(String theInput) {
         String theOutput = "";
+
 
         if (roundCounter > Round.getMaxRoundsPerGame()) {
             return "Spelet är slut";
 
         }
+        Player currentPlayer = getCurrentPlayer();
+
 
         if (state == WAITING) {
             if (questionCounter == 0) {
@@ -38,6 +44,9 @@ public class quizkampenProtocol {
         } else if (state == ANSWER) {
             if (theInput.equalsIgnoreCase(questions.getCorrectAnswer(currentQuestionIndex))) {
                 theOutput = "Du svarade rätt";
+                int points = 1;
+                currentPlayer.updateRoundPoints(1, points);
+
             } else {
                 theOutput = "Du svarade fel, rätt svar är " + questions.getCorrectAnswer(currentQuestionIndex);
             }
@@ -51,7 +60,21 @@ public class quizkampenProtocol {
                 if (roundCounter >= Round.getMaxRoundsPerGame()) {
                     gameCounter++;
                     theOutput += "\nGame " + gameCounter + " färdigspelat";
+                } else {
+                    // Skriver ut poängen per runda för varje spelare
+                    theOutput += "\nPoäng efter rond " + roundCounter + ":";
+                    theOutput += "\nPoäng för " + player1.getName() + ": " + player1.getPointsForRound(roundCounter);
+                    theOutput += "\nPoäng för " + player2.getName() + ": " + player2.getPointsForRound(roundCounter);
+
+                    // Uppdaterar totala poängen för varje spelar efter rundan
+                    player1.updateTotalPoints(player1.getPointsForRound(roundCounter));
+                    player2.updateTotalPoints(player2.getPointsForRound(roundCounter));
+
+                    // Skriver ut totala poängen efter varje runda
+                    theOutput += "\nTotal poäng för " + player1.getName() + " efter rond " + roundCounter + ": " + player1.getTotalPoints();
+                    theOutput += "\nTotal poäng för " + player2.getName() + " efter rond " + roundCounter + ": " + player2.getTotalPoints();
                 }
+
             }
             if (currentQuestionIndex < questions.getQuestionAmount()) {
                 state = WAITING;
@@ -64,8 +87,11 @@ public class quizkampenProtocol {
 
         return theOutput;
     }
-}
 
+    private Player getCurrentPlayer() {
+        return (roundCounter % 2 == 0) ? player1 : player2;
+    }
+}
 
 
 
