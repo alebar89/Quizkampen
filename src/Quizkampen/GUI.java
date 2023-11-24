@@ -6,10 +6,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class GUI extends JPanel {
+public class GUI {
 
     private int currentQuestion = 0;
-    private JTextArea textArea;
+    private JPanel textArea;
+     private JLabel Question;
     private JButton[][] buttons;
     private Questions questions;
 
@@ -21,7 +22,9 @@ public class GUI extends JPanel {
         StringAndCirclesPanel northPanel = new StringAndCirclesPanel();
         mainPanel.add(BorderLayout.NORTH, northPanel);
 
-        textArea = new JTextArea();
+        Question = new JLabel();
+        textArea = new JPanel();
+        textArea.add(Question);
         textArea.setPreferredSize(new Dimension(400, 200));
         textArea.setBorder(BorderFactory.createMatteBorder(15, 15, 15, 15, Color.LIGHT_GRAY));
         mainPanel.add(BorderLayout.CENTER, textArea);
@@ -83,7 +86,7 @@ public class GUI extends JPanel {
         }
 
         private void updateQuestionAndOptions() {
-            textArea.setText(questions.getQuestions(currentQuestion));
+            Question.setText(questions.getQuestions(currentQuestion));
 
             for (int i = 0; i < 4; i++) {
                 buttons[i / 2][i % 2].setText(questions.getAlternatives(currentQuestion)[i]);
