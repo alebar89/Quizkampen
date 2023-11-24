@@ -10,17 +10,18 @@ public class GUI {
 
     private int currentQuestion = 0;
     private JPanel textArea;
-     private JLabel Question;
+    private JLabel Question;
     private JButton[][] buttons;
     private Questions questions;
+    private StringAndCirclesPanel stringAndCirclesPanel;
 
     GUI() {
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         JPanel mainPanel = new JPanel(new BorderLayout());
-        StringAndCirclesPanel northPanel = new StringAndCirclesPanel();
-        mainPanel.add(BorderLayout.NORTH, northPanel);
+        stringAndCirclesPanel = new StringAndCirclesPanel();
+        mainPanel.add(BorderLayout.NORTH, stringAndCirclesPanel);
 
         Question = new JLabel();
         textArea = new JPanel();
@@ -55,7 +56,15 @@ public class GUI {
     }
 
     private void updateQuestionAndOptions() {
+        if (currentQuestion < questions.getQuestionAmount()) {
+            Question.setText(questions.getQuestions(currentQuestion));
 
+            for (int i = 0; i < 4; i++) {
+                buttons[i / 2][i % 2].setText(questions.getAlternatives(currentQuestion)[i]);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Quizet är slut.");
+        }
     }
 
     private class OptionButtonListener implements ActionListener {
@@ -70,8 +79,10 @@ public class GUI {
 
                 if (selectedAnswer.equalsIgnoreCase(correctAnswer)) {
                     JOptionPane.showMessageDialog(null, "Du svarade rätt");
+                    stringAndCirclesPanel.changeColor(Color.GREEN); // Ändra färg till grön
                 } else {
                     JOptionPane.showMessageDialog(null, "Du svarade fel");
+                    stringAndCirclesPanel.changeColor(Color.RED); // Ändra färg till röd
                 }
 
                 if (currentQuestion < questions.getQuestionAmount() - 1) {
@@ -82,14 +93,6 @@ public class GUI {
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Felaktig data eller index");
-            }
-        }
-
-        private void updateQuestionAndOptions() {
-            Question.setText(questions.getQuestions(currentQuestion));
-
-            for (int i = 0; i < 4; i++) {
-                buttons[i / 2][i % 2].setText(questions.getAlternatives(currentQuestion)[i]);
             }
         }
     }

@@ -43,7 +43,7 @@ public class StringAndCirclesPanel extends JPanel {
         add(resetButton);
     }
 
-    private void changeColor(Color newColor) {
+    void changeColor(Color newColor) {
         for (int i = 0; i < pointCircles.length; i++) {
             if (pointCircles[i] == Color.GRAY) {
                 pointCircles[i] = newColor;
