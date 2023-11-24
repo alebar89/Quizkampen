@@ -1,4 +1,4 @@
-package Quizkampen;
+package Quizkampen.GamePanels;
 
 import javax.swing.*;
 import java.awt.*;
@@ -90,6 +90,7 @@ public class ScoreBoard extends JPanel {
 
             frame.setLocationRelativeTo(null);
             frame.setVisible(true);
+            
         });
     }
 }

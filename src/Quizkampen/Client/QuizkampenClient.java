@@ -1,4 +1,4 @@
-package Quizkampen;
+package Quizkampen.Client;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package Quizkampen;
+package Quizkampen.Game;
 
 public class Game {
 

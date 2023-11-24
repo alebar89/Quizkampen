@@ -1,4 +1,8 @@
-package Quizkampen;
+package Quizkampen.Server;
+
+import Quizkampen.Model.Player;
+import Quizkampen.Model.Questions;
+import Quizkampen.Game.Round;
 
 import java.util.Arrays;
 
