@@ -1,4 +1,4 @@
-package Quizkampen;
+package Quizkampen.Model;
 
 public class Player {
     private String name;

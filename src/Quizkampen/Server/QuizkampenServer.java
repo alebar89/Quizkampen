@@ -1,4 +1,6 @@
-package Quizkampen;
+package Quizkampen.Server;
+
+import Quizkampen.Server.ClientHandler;
 
 import java.io.IOException;
 import java.net.ServerSocket;

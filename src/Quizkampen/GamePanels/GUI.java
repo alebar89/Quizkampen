@@ -1,4 +1,4 @@
-package Quizkampen;
+package Quizkampen.GamePanels;
 
 import javax.swing.*;
 import javax.swing.border.Border;
