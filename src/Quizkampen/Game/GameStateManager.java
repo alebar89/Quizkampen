@@ -1,5 +1,8 @@
 package Quizkampen.Game;
 
+import Quizkampen.GamePanels.CategoryWindowPanel;
+import Quizkampen.GamePanels.GamePanel;
+import Quizkampen.GamePanels.LobbyPanel;
 import Quizkampen.GamePanels.LoginPanel;
 
 import javax.swing.*;
@@ -32,6 +35,9 @@ public class GameStateManager {
     // lägg till era paneler här så kan vi fixa logiken till att hoppa till varje state.
     private void intitializeStates() {
         cardPanel.add(new LoginPanel(this), String.valueOf(LOGIN_STATE));
+        cardPanel.add(new LobbyPanel(this), String.valueOf(LOBBY_STATE));
+        cardPanel.add(new CategoryWindowPanel(this), String.valueOf(CATEGORY_STATE));
+        cardPanel.add(new GamePanel(this), String.valueOf(GAME_STATE));
 
 
     }

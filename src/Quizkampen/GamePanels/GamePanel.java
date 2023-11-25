@@ -1,5 +1,6 @@
 package Quizkampen.GamePanels;
 
+import Quizkampen.Game.GameStateManager;
 import Quizkampen.Model.Questions;
 
 import javax.swing.*;
@@ -8,10 +9,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import static java.awt.BorderLayout.CENTER;
-import static java.awt.BorderLayout.SOUTH;
-
-public class GUI {
+public class GamePanel extends JPanel {
 
     private int currentQuestion = 0;
     private JPanel textArea;
@@ -20,20 +18,17 @@ public class GUI {
     private Questions questions;
     private StringAndCirclesPanel stringAndCirclesPanel;
 
-    GUI() {
-        JFrame frame = new JFrame();
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
-        JPanel mainPanel = new JPanel(new BorderLayout());
+    public GamePanel(GameStateManager gsm) {
+        setLayout(new BorderLayout());
         stringAndCirclesPanel = new StringAndCirclesPanel();
-        mainPanel.add(BorderLayout.NORTH, stringAndCirclesPanel);
+        add(BorderLayout.NORTH, stringAndCirclesPanel);
 
         Question = new JLabel();
         textArea = new JPanel();
         textArea.add(Question);
         textArea.setPreferredSize(new Dimension(400, 200));
         textArea.setBorder(BorderFactory.createMatteBorder(15, 15, 15, 15, Color.LIGHT_GRAY));
-        mainPanel.add(BorderLayout.CENTER, textArea);
+        add(BorderLayout.CENTER, textArea);
 
         JPanel buttonPanel = new JPanel(new GridLayout(2, 2));
         buttonPanel.setPreferredSize(new Dimension(200, 130));
@@ -49,15 +44,14 @@ public class GUI {
             }
         }
 
-        mainPanel.add(BorderLayout.SOUTH, buttonPanel);
-        frame.add(mainPanel);
+        add(BorderLayout.SOUTH, buttonPanel);
+
 
         questions = new Questions();
 
         updateQuestionAndOptions();
 
-        frame.pack();
-        frame.setVisible(true);
+
     }
 
     private void updateQuestionAndOptions() {
@@ -100,12 +94,6 @@ public class GUI {
                 JOptionPane.showMessageDialog(null, "Felaktig data eller index");
             }
         }
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            new GUI();
-        });
     }
 
 }

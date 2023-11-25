@@ -5,7 +5,7 @@ import Quizkampen.Game.Round;
 import javax.swing.*;
 import java.awt.*;
 
-public class ScoreBoard extends JPanel {
+public class ScoreBoardPanel extends JPanel {
 
     private static final int CIRCLE_SIZE = 20;
     private static final int CIRCLE_GAP = 10;
@@ -84,7 +84,7 @@ public class ScoreBoard extends JPanel {
             southPanel.add(southEastLabel);
             southEastLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 
-            ScoreBoard circleDrawing = new ScoreBoard();
+            ScoreBoardPanel circleDrawing = new ScoreBoardPanel();
 
             frame.setLayout(new BorderLayout());
             frame.add(topPanel, BorderLayout.NORTH);
