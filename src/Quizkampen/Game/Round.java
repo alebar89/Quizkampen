@@ -26,7 +26,7 @@ public class Round {
 
     public static void loadProperties() {
         Properties prop = new Properties();
-        try (FileInputStream is = new FileInputStream("/Quizkampen/src/game-config.properties")) {
+        try (FileInputStream is = new FileInputStream("src/game-config.properties")) {
             prop.load(is);
             MAX_QUESTIONS_PER_ROUND = Integer.parseInt(prop.getProperty("questions.per.round"));
             MAX_ROUNDS_PER_GAME = Integer.parseInt(prop.getProperty("rounds.per.game"));
