@@ -1,10 +1,15 @@
 package Quizkampen.GamePanels;
 
+import Quizkampen.Model.Questions;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import static java.awt.BorderLayout.CENTER;
+import static java.awt.BorderLayout.SOUTH;
 
 public class GUI {
 
@@ -102,4 +107,5 @@ public class GUI {
             new GUI();
         });
     }
+
 }
