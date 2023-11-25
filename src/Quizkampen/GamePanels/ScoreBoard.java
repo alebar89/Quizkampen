@@ -1,14 +1,16 @@
 package Quizkampen.GamePanels;
 
+import Quizkampen.Game.Round;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class ScoreBoard extends JPanel {
 
-    private static final int CIRCLE_DIAMETER = 20;
+    private static final int CIRCLE_SIZE = 20;
     private static final int CIRCLE_GAP = 10;
-    private static final int ROWS = 6;
-    private static final int CIRCLES_PER_ROW = 3;
+    private static final int ROUNDS_PER_GAME = Round.getMaxRoundsPerGame();
+    private static final int QUESTIONS_PER_ROUND = Round.getMaxQuestionsPerRound();
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -20,23 +22,23 @@ public class ScoreBoard extends JPanel {
 
         int startY = 10;
 
-        for (int i = 0; i < ROWS; i++) {
+        for (int i = 0; i < ROUNDS_PER_GAME; i++) {
             // Draw circles on the left side
-            for (int j = 0; j < CIRCLES_PER_ROW; j++) {
-                int x = startXLeft + j * (CIRCLE_DIAMETER + CIRCLE_GAP);
-                int y = startY + i * (CIRCLE_DIAMETER + CIRCLE_GAP);
+            for (int j = 0; j < QUESTIONS_PER_ROUND; j++) {
+                int x = startXLeft + j * (CIRCLE_SIZE + CIRCLE_GAP);
+                int y = startY + i * (CIRCLE_SIZE + CIRCLE_GAP);
 
                 g2d.setColor(Color.GRAY);
-                g2d.fillOval(x, y, CIRCLE_DIAMETER, CIRCLE_DIAMETER);
+                g2d.fillOval(x, y, CIRCLE_SIZE, CIRCLE_SIZE);
             }
 
             // Draw circles on the right side
-            for (int j = 0; j < CIRCLES_PER_ROW; j++) {
-                int x = startXRight - j * (CIRCLE_DIAMETER + CIRCLE_GAP);
-                int y = startY + i * (CIRCLE_DIAMETER + CIRCLE_GAP);
+            for (int j = 0; j < QUESTIONS_PER_ROUND; j++) {
+                int x = startXRight - j * (CIRCLE_SIZE + CIRCLE_GAP);
+                int y = startY + i * (CIRCLE_SIZE + CIRCLE_GAP);
 
                 g2d.setColor(Color.GRAY);
-                g2d.fillOval(x, y, CIRCLE_DIAMETER, CIRCLE_DIAMETER);
+                g2d.fillOval(x, y, CIRCLE_SIZE, CIRCLE_SIZE);
             }
 
             // Draw the row number in the middle of the row
@@ -44,7 +46,7 @@ public class ScoreBoard extends JPanel {
             FontMetrics fm = g2d.getFontMetrics();
             int textWidth = fm.stringWidth(Integer.toString(rowNumber));
             int textX = getWidth() / 2 - textWidth / 2; // Center the text horizontally
-            int textY = startY + i * (CIRCLE_DIAMETER + CIRCLE_GAP) + CIRCLE_DIAMETER / 2 + fm.getAscent() / 2; // Center the text vertically
+            int textY = startY + i * (CIRCLE_SIZE + CIRCLE_GAP) + CIRCLE_SIZE / 2 + fm.getAscent() / 2; // Center the text vertically
 
             g2d.setColor(Color.BLACK);
             g2d.drawString(Integer.toString(rowNumber), textX, textY);
