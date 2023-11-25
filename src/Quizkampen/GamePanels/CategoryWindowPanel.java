@@ -1,13 +1,13 @@
 package Quizkampen.GamePanels;
 
+import Quizkampen.Game.GameStateManager;
+
 import javax.swing.*;
 import java.awt.*;
 
-public class CategoryWindow {
-    public CategoryWindow() {
-        JFrame frame = new JFrame();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        JPanel mainPanel = new JPanel(new BorderLayout());
+public class CategoryWindowPanel extends JPanel {
+    public CategoryWindowPanel(GameStateManager gsm) {
+        setLayout(new BorderLayout());
         JPanel topPanel = new JPanel();
         JPanel centralPanel = new JPanel(new GridBagLayout());
         JLabel categoryHeading = new JLabel("Välj kategori/choose category");
@@ -15,7 +15,6 @@ public class CategoryWindow {
         Font originalFont = categoryHeading.getFont();
         Font largerFont = new Font(originalFont.getName(), Font.PLAIN, originalFont.getSize() + 10);
         categoryHeading.setFont(largerFont);
-
         categoryHeading.setBorder(BorderFactory.createEmptyBorder(20, 0, 10, 0));
 
         JButton firstOption = new JButton("Kategori/category 1");
@@ -42,18 +41,14 @@ public class CategoryWindow {
         gbc.gridy++;
         centralPanel.add(thirdOption, gbc);
 
-        frame.add(mainPanel);
-        mainPanel.add(topPanel, BorderLayout.NORTH);
-        mainPanel.add(centralPanel, BorderLayout.CENTER);
+        add(topPanel, BorderLayout.NORTH);
+        add(centralPanel, BorderLayout.CENTER);
         topPanel.add(categoryHeading);
         categoryHeading.setHorizontalAlignment(SwingConstants.CENTER);
         categoryHeading.setVerticalAlignment(SwingConstants.CENTER);
 
-        frame.setSize(400, 400);
-        frame.setVisible(true);
-    }
+        firstOption.addActionListener(e -> gsm.setState(GameStateManager.GAME_STATE));
 
-    public static void main(String[] args) {
-        CategoryWindow cw = new CategoryWindow();
     }
 }
+
