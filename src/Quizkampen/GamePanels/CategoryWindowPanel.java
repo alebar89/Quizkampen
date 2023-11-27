@@ -1,6 +1,7 @@
 package Quizkampen.GamePanels;
 
 import Quizkampen.Game.GameStateManager;
+import Quizkampen.Model.Questions;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,9 +18,9 @@ public class CategoryWindowPanel extends JPanel {
         categoryHeading.setFont(largerFont);
         categoryHeading.setBorder(BorderFactory.createEmptyBorder(20, 0, 10, 0));
 
-        JButton firstOption = new JButton("Kategori/category 1");
-        JButton secondOption = new JButton("Kategori/category 2");
-        JButton thirdOption = new JButton("Kategori/category 3");
+        JButton firstOption = new JButton("Sport");
+        JButton secondOption = new JButton("Film");
+        JButton thirdOption = new JButton("Geography");
 
         Dimension smallerButtonSize = new Dimension(250, 50);
 
@@ -47,7 +48,12 @@ public class CategoryWindowPanel extends JPanel {
         categoryHeading.setHorizontalAlignment(SwingConstants.CENTER);
         categoryHeading.setVerticalAlignment(SwingConstants.CENTER);
 
-        firstOption.addActionListener(e -> gsm.setState(GameStateManager.GAME_STATE));
+        firstOption.addActionListener(e -> gsm.loadQuestionsForCategory(Questions.SPORT_CATEGORY));
+        secondOption.addActionListener(e -> gsm.loadQuestionsForCategory(Questions.MOVIES_CATEGORY));
+        thirdOption.addActionListener(e -> gsm.loadQuestionsForCategory(Questions.GEOGRAPHY_CATEGORY));
+
+
+
 
     }
 }

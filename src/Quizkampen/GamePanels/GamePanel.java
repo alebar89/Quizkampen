@@ -18,7 +18,10 @@ public class GamePanel extends JPanel {
     private Questions questions;
     private StringAndCirclesPanel stringAndCirclesPanel;
 
+    private GameStateManager gsm;
+
     public GamePanel(GameStateManager gsm) {
+        this.gsm = gsm;
         setLayout(new BorderLayout());
         stringAndCirclesPanel = new StringAndCirclesPanel();
         add(BorderLayout.NORTH, stringAndCirclesPanel);
@@ -47,19 +50,19 @@ public class GamePanel extends JPanel {
         add(BorderLayout.SOUTH, buttonPanel);
 
 
-        questions = new Questions();
 
+        questions = new Questions();
         updateQuestionAndOptions();
 
 
     }
 
-    private void updateQuestionAndOptions() {
-        if (currentQuestion < questions.getQuestionAmount()) {
-            Question.setText(questions.getQuestions(currentQuestion));
-
-            for (int i = 0; i < 4; i++) {
-                buttons[i / 2][i % 2].setText(questions.getAlternatives(currentQuestion)[i]);
+    public void updateQuestionAndOptions() {
+        if (currentQuestion < gsm.getCurrentQuestions().length) {
+            Question.setText(gsm.getCurrentQuestions()[currentQuestion]);
+            String[] alternatives = gsm.getCurrentAlternatives()[currentQuestion];
+            for (int i = 0; i < alternatives.length; i++) {
+                buttons[i / 2][i % 2].setText(alternatives[i]);
             }
         } else {
             JOptionPane.showMessageDialog(null, "Quizet är slut.");

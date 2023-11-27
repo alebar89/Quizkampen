@@ -1,5 +1,7 @@
 package Quizkampen.GamePanels;
 
+import Quizkampen.Game.GameStateManager;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -9,6 +11,42 @@ public class ScoreBoardPanel extends JPanel {
     private static final int CIRCLE_GAP = 10;
     private static final int ROWS = 6;
     private static final int CIRCLES_PER_ROW = 3;
+
+    private JLabel northLabel;
+    private JLabel centralLabel;
+    private JLabel southWestLabel;
+    private JLabel southEastLabel;
+
+
+    public ScoreBoardPanel(GameStateManager gsm) {
+
+        northLabel = new JLabel("Turn: Player 1");
+        centralLabel = new JLabel("Points: 0 - 0");
+        southWestLabel = new JLabel("Player 1");
+        southEastLabel = new JLabel("Player 2");
+
+        setLayout(new BorderLayout());
+        JPanel topPanel = new JPanel(new BorderLayout());
+        JPanel southPanel = new JPanel(new GridLayout(0, 2));
+
+        // Configure labels
+        northLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        centralLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        southWestLabel.setHorizontalAlignment(SwingConstants.LEFT);
+        southEastLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+
+
+        topPanel.add(northLabel, BorderLayout.NORTH);
+        topPanel.add(centralLabel, BorderLayout.CENTER);
+        southPanel.add(southWestLabel);
+        southPanel.add(southEastLabel);
+
+
+        add(topPanel, BorderLayout.NORTH);
+        add(southPanel, BorderLayout.SOUTH);
+
+
+    }
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -51,46 +89,4 @@ public class ScoreBoardPanel extends JPanel {
         }
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            String playerOne = "Player 1";
-            String playerTwo = "Player 2";
-            int playerOnePoints = 3;
-            int playerTwoPoints = 5;
-            String playerOnePointsToString = String.valueOf(playerOnePoints);
-            String playerTwoPointsToString = String.valueOf(playerTwoPoints);
-
-            JFrame frame = new JFrame("Circle Drawing");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setSize(400, 400);
-
-            JPanel topPanel = new JPanel(new BorderLayout());
-            JPanel southPanel = new JPanel(new GridLayout(0, 2));
-
-            JLabel northLabel = new JLabel("Turn: " + playerOne);
-            northLabel.setHorizontalAlignment(SwingConstants.CENTER);
-            JLabel centralLabel = new JLabel("Points: " + playerOnePointsToString + " - " + playerTwoPointsToString);
-            centralLabel.setHorizontalAlignment(SwingConstants.CENTER);
-            JLabel southWestLabel = new JLabel(playerOne);
-            JLabel southEastLabel = new JLabel(playerTwo);
-
-            topPanel.add(northLabel, BorderLayout.NORTH);
-            topPanel.add(centralLabel, BorderLayout.CENTER);
-            topPanel.add(southPanel, BorderLayout.SOUTH);
-            southPanel.add(southWestLabel);
-            southWestLabel.setHorizontalAlignment(SwingConstants.LEFT);
-            southPanel.add(southEastLabel);
-            southEastLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-
-            ScoreBoardPanel circleDrawing = new ScoreBoardPanel();
-
-            frame.setLayout(new BorderLayout());
-            frame.add(topPanel, BorderLayout.NORTH);
-            frame.add(circleDrawing, BorderLayout.CENTER);
-
-            frame.setLocationRelativeTo(null);
-            frame.setVisible(true);
-            
-        });
-    }
 }

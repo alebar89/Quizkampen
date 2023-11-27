@@ -22,5 +22,6 @@ public class LoginPanel extends JPanel {
         add(buttonLogin);
 
         buttonLogin.addActionListener(e -> gsm.setState(GameStateManager.LOBBY_STATE));
+
     }
 }
