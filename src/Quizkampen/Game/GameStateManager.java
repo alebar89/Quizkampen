@@ -115,13 +115,4 @@ public class GameStateManager {
     }
 
 
-    public void sendPlayerName(String text) {
-        clientHandler.run();
-
-    }
-
-    public void receivePlayerName(String text) {
-        clientHandler.run();
-
-    }
 }
