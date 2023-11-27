@@ -21,7 +21,7 @@ public class LoginPanel extends JPanel {
         buttonLogin.setBounds(50, 215, 275,25);
         add(buttonLogin);
 
-        buttonLogin.addActionListener(e -> gsm.setState(GameStateManager.RESULT_STATE));
+        buttonLogin.addActionListener(e -> gsm.setState(GameStateManager.LOBBY_STATE));
 
     }
 }
