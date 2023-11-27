@@ -1,4 +1,4 @@
-package Quizkampen.GamePanels;
+/*package Quizkampen.GamePanels;
 
 import Quizkampen.Game.GameStateManager;
 
@@ -40,4 +40,6 @@ public class LobbyPanel extends JPanel {
 
     }
 }
+*/
+
 

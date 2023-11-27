@@ -49,8 +49,6 @@ public class GamePanel extends JPanel {
 
         add(BorderLayout.SOUTH, buttonPanel);
 
-
-
         questions = new Questions();
         updateQuestionAndOptions();
 

@@ -64,7 +64,6 @@ public class GameStateManager {
     // funktion osm väntar på svar
     private void intitializeStates() {
         cardPanel.add(new LoginPanel(this), String.valueOf(LOGIN_STATE));
-        cardPanel.add(new LobbyPanel(this), String.valueOf(LOBBY_STATE));
         cardPanel.add(new CategoryWindowPanel(this), String.valueOf(CATEGORY_STATE));
         cardPanel.add(new ScoreBoardPanel(this), String.valueOf(RESULT_STATE));
     }
