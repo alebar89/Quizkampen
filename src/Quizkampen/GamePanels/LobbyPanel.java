@@ -31,6 +31,8 @@ public class LobbyPanel extends JPanel {
         JButton anslut = new JButton("Gå med i spel");
 
 
+
+
         // Top corners panel
         JPanel topCorners = new JPanel(new BorderLayout());
         topCorners.add(northWestLabel, BorderLayout.WEST);

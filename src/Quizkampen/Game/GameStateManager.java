@@ -2,6 +2,7 @@ package Quizkampen.Game;
 
 import Quizkampen.GamePanels.*;
 import Quizkampen.Model.Questions;
+import Quizkampen.Server.ClientHandler;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,6 +13,7 @@ public class GameStateManager {
     // det hela går ut på att alla paneler ligger på varandra men man väljer ut den panel som ska visas vid respektive stadie.
     private JPanel cardPanel;
 
+    private ClientHandler clientHandler;
 
 
     public static final int LOGIN_STATE = 0;
@@ -113,5 +115,13 @@ public class GameStateManager {
     }
 
 
+    public void sendPlayerName(String text) {
+        clientHandler.run();
 
+    }
+
+    public void receivePlayerName(String text) {
+        clientHandler.run();
+
+    }
 }
