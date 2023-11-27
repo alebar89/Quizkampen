@@ -7,6 +7,8 @@ import javax.swing.*;
 
 public class Game {
 
+    //
+
     private JFrame frame;
     private GameStateManager gameStateManager;
 
@@ -22,6 +24,7 @@ public class Game {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400,400);
         frame.setLocationRelativeTo(null);
+        
     }
 
     private void initializeGameStateManager(){

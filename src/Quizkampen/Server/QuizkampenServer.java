@@ -1,5 +1,6 @@
 package Quizkampen.Server;
 
+import Quizkampen.Game.Game;
 import Quizkampen.Server.ClientHandler;
 
 import java.io.IOException;

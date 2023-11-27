@@ -1,5 +1,7 @@
 package Quizkampen.Client;
 
+import Quizkampen.Game.Game;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -9,6 +11,7 @@ import java.net.Socket;
 public class QuizkampenClient {
 
     public static void main(String[] args) {
+        new Game();
         try (Socket socket = new Socket("localhost", 5000);
              PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
              BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));

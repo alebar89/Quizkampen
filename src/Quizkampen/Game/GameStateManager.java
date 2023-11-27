@@ -1,9 +1,8 @@
 package Quizkampen.Game;
 
-import Quizkampen.GamePanels.CategoryWindowPanel;
-import Quizkampen.GamePanels.GamePanel;
-import Quizkampen.GamePanels.LobbyPanel;
-import Quizkampen.GamePanels.LoginPanel;
+import Quizkampen.GamePanels.*;
+import Quizkampen.Model.Questions;
+import Quizkampen.Server.ClientHandler;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,13 +13,44 @@ public class GameStateManager {
     // det hela går ut på att alla paneler ligger på varandra men man väljer ut den panel som ska visas vid respektive stadie.
     private JPanel cardPanel;
 
+    private ClientHandler clientHandler;
+
+
     public static final int LOGIN_STATE = 0;
     public static final int LOBBY_STATE = 1;
     public static final int CATEGORY_STATE = 2;
     public static final int GAME_STATE = 3;
     public static final int RESULT_STATE = 4;
-
     public static int CURRENT_STATE = LOGIN_STATE;
+
+    private String[] currentQuestions;
+
+    public String[] getCurrentQuestions() {
+        return currentQuestions;
+    }
+
+    public void setCurrentQuestions(String[] currentQuestions) {
+        this.currentQuestions = currentQuestions;
+    }
+
+    public String[] getCurrentAnswers() {
+        return currentAnswers;
+    }
+
+    public void setCurrentAnswers(String[] currentAnswers) {
+        this.currentAnswers = currentAnswers;
+    }
+
+    public String[][] getCurrentAlternatives() {
+        return currentAlternatives;
+    }
+
+    public void setCurrentAlternatives(String[][] currentAlternatives) {
+        this.currentAlternatives = currentAlternatives;
+    }
+
+    private String[] currentAnswers;
+    private String[][] currentAlternatives;
 
     public GameStateManager(JFrame frame) {
         cardPanel = new JPanel(new CardLayout());
@@ -28,18 +58,52 @@ public class GameStateManager {
         frame.add(cardPanel);
 
         intitializeStates();
-
     }
 
     // initierar de olika korten(panelerna) som ska displayas för de olika stadierna i spelet.
     // lägg till era paneler här så kan vi fixa logiken till att hoppa till varje state.
+    // obs nedan så initieras panelerna direkt när spelet körs och kan därmed inte använda någon
+    // funktion osm väntar på svar
     private void intitializeStates() {
         cardPanel.add(new LoginPanel(this), String.valueOf(LOGIN_STATE));
-        cardPanel.add(new LobbyPanel(this), String.valueOf(LOBBY_STATE));
         cardPanel.add(new CategoryWindowPanel(this), String.valueOf(CATEGORY_STATE));
-        cardPanel.add(new GamePanel(this), String.valueOf(GAME_STATE));
+        cardPanel.add(new LobbyPanel(this), String.valueOf(LOBBY_STATE));
+    }
 
 
+    public void initializeGamePanel() {
+        GamePanel gamePanel = new GamePanel(this);
+        cardPanel.add(gamePanel, String.valueOf(GAME_STATE));
+        gamePanel.updateQuestionAndOptions();
+    }
+
+    public void loadQuestionsForCategory(String category) {
+        switch (category) {
+            case Questions.SPORT_CATEGORY:
+                currentQuestions = Questions.getQuestionSport();
+                currentAnswers = Questions.getAnswersSport();
+                currentAlternatives = Questions.getAlternativesSport();
+                break;
+            case Questions.MOVIES_CATEGORY:
+                currentQuestions = Questions.getQuestionMovies();
+                currentAnswers = Questions.getAnswersMovies();
+                currentAlternatives = Questions.getAlternativesMovies();
+                break;
+            case Questions.GEOGRAPHY_CATEGORY:
+                currentQuestions = Questions.getQuestionGeography();
+                currentAnswers = Questions.getAnswersGeography();
+                currentAlternatives = Questions.getAlternativesGeography();
+                break;
+            case Questions.ANIMALS_CATEGORY:
+                currentQuestions = Questions.getQuestionAnimals();
+                currentAnswers = Questions.getAnswersAnimals();
+                currentAlternatives = Questions.getAlternativesAnimals();
+                break;
+            default:
+                throw new IllegalStateException("Okänd Kategori: " + category);
+        }
+        initializeGamePanel();
+        setState(GAME_STATE);
     }
 
 
@@ -49,7 +113,6 @@ public class GameStateManager {
         cardLayout.show(cardPanel, stateString);
         CURRENT_STATE = state;
     }
-
 
 
 }
