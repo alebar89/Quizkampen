@@ -21,6 +21,7 @@ public class CategoryWindowPanel extends JPanel {
         JButton firstOption = new JButton("Sport");
         JButton secondOption = new JButton("Film");
         JButton thirdOption = new JButton("Geography");
+        JButton fourthOption = new JButton("Animals");
 
         Dimension smallerButtonSize = new Dimension(250, 50);
 
@@ -30,6 +31,8 @@ public class CategoryWindowPanel extends JPanel {
         secondOption.setMaximumSize(smallerButtonSize);
         thirdOption.setPreferredSize(smallerButtonSize);
         thirdOption.setMaximumSize(smallerButtonSize);
+        fourthOption.setPreferredSize(smallerButtonSize);
+        fourthOption.setMaximumSize(smallerButtonSize);
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -41,6 +44,8 @@ public class CategoryWindowPanel extends JPanel {
         centralPanel.add(secondOption, gbc);
         gbc.gridy++;
         centralPanel.add(thirdOption, gbc);
+        gbc.gridy++;
+        centralPanel.add(fourthOption, gbc);
 
         add(topPanel, BorderLayout.NORTH);
         add(centralPanel, BorderLayout.CENTER);
@@ -51,6 +56,7 @@ public class CategoryWindowPanel extends JPanel {
         firstOption.addActionListener(e -> gsm.loadQuestionsForCategory(Questions.SPORT_CATEGORY));
         secondOption.addActionListener(e -> gsm.loadQuestionsForCategory(Questions.MOVIES_CATEGORY));
         thirdOption.addActionListener(e -> gsm.loadQuestionsForCategory(Questions.GEOGRAPHY_CATEGORY));
+        fourthOption.addActionListener(e -> gsm.loadQuestionsForCategory(Questions.ANIMALS_CATEGORY));
 
 
 
