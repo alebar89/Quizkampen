@@ -321,33 +321,33 @@ public class QuizkampenClient implements ActionListener {
      */
 
     private void processGameResult(int player1FinalScore, int player2FinalScore) {
-        if (player1FinalScore > player1FinalScore) {
+        if (player1FinalScore > player2FinalScore) {
             if (player1FinalScore == finalScore) {
                 finalResultPlayer1.setText(String.valueOf(player1FinalScore));
-                finalResultPlayer2.setText(String.valueOf(player1FinalScore));
+                finalResultPlayer2.setText(String.valueOf(player2FinalScore));
                 frame.setTitle("Vinst");
                 NextRoundButton.setText("Du vann!");
             } else {
-                finalResultPlayer1.setText(String.valueOf(player1FinalScore));
+                finalResultPlayer1.setText(String.valueOf(player2FinalScore));
                 finalResultPlayer2.setText(String.valueOf(player1FinalScore));
                 frame.setTitle("Förlust");
                 NextRoundButton.setText("Du förlora!");
             }
-        } else if (player1FinalScore < player1FinalScore) {
+        } else if (player1FinalScore < player2FinalScore) {
             if (player1FinalScore == finalScore) {
                 finalResultPlayer1.setText(String.valueOf(player1FinalScore));
-                finalResultPlayer2.setText(String.valueOf(player1FinalScore));
+                finalResultPlayer2.setText(String.valueOf(player2FinalScore));
                 frame.setTitle("Förlust");
                 NextRoundButton.setText("Du förlora!");
             } else {
-                finalResultPlayer1.setText(String.valueOf(player1FinalScore));
+                finalResultPlayer1.setText(String.valueOf(player2FinalScore));
                 finalResultPlayer2.setText(String.valueOf(player1FinalScore));
                 frame.setTitle("Vinst");
                 NextRoundButton.setText("Du vann!");
             }
         } else {
             finalResultPlayer1.setText(String.valueOf(player1FinalScore));
-            finalResultPlayer2.setText(String.valueOf(player1FinalScore));
+            finalResultPlayer2.setText(String.valueOf(player2FinalScore));
             frame.setTitle("Oavgjort");
             NextRoundButton.setText("Det blev oavgjort!");
         }
