@@ -1,28 +1,37 @@
 package Quizkampen.Server;
 
-import Quizkampen.Game.Game;
-import Quizkampen.Server.ClientHandler;
+import java.util.ArrayList;
+import java.util.List;
 
-import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
 
 public class QuizkampenServer {
 
-    public static void main(String[] args) {
-        try (ServerSocket serverSocket = new ServerSocket(5000)) {
-            System.out.println("Server Körs. Väntar på spelare...");
+    public PlayerThread currentPlayer;
+    private QuestionDatabase database = Server.database;
 
-            while (true) {
-                Socket clientSocket = serverSocket.accept();
-                System.out.println("Spelare Kopplad " + clientSocket);
-
-                // Create a new thread to handle the client
-                Thread clientThread = new Thread(new ClientHandler(clientSocket));
-                clientThread.start();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+    private PlayerThread getPlayerOne() {
+        if (currentPlayer.getName().equalsIgnoreCase("Spelare 1")) {
+            return currentPlayer;
+        } else {
+            return currentPlayer.getOpponentPlayer();
         }
+    }
+
+    private PlayerThread getPlayerTwo(){
+        return getPlayerOne().getOpponentPlayer();
+    }
+
+    private List<String> resultList = new ArrayList<String>();
+
+    public void addResult(String p) {
+        resultList.add(p);
+    }
+
+    public List<String> getResults() {
+        return resultList;
+    }
+
+    public QuestionDatabase getDatabase() {
+        return database;
     }
 }
